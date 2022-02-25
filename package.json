@@ -1,0 +1,25 @@
+{
+  "name": "mywebrtc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "httpolyglot": "^0.1.2",
+    "node-abi": "^3.8.0",
+    "play-sound": "^1.1.5",
+    "robotjs": "^0.6.0",
+    "simple-peer": "^9.7.0",
+    "socket.io": "^2.4.0",
+    "sound-play": "^1.1.0"
+  },
+  "devDependencies": {
+    "electron": "^17.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron src/main.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

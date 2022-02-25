@@ -1,0 +1,77 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    background: #0f0131;
+    height: 0;
+}
+
+.NetworkConnectivityIndicator{
+    color:red;
+    position : absolute;
+    bottom:0;
+    transform: scaleX(-1);
+    left:-5px;
+    width:100%;
+}
+
+
+.btn{
+    padding: 0.5em;
+    border: none;
+    background: #d7d7d7;
+    border-radius: 0.4em;
+    margin: 0.8em;
+    cursor: pointer;
+}
+.primary{
+    color:#FFF;
+    background: #428b83;
+}
+
+.danger{
+    color:#FFF;
+    background: #b22222;
+
+}
+.warning{
+    color:#000;
+    background: #ffd700;
+}
+.success{
+    color:#FFF;
+    background: #006400;
+}
+.info{
+    color:#FFF;
+    background: #4682b4;
+}
+.waiting_for_stream{
+    color:#FFF;
+    height:100%;
+    top:-40vh;
+    position: relative;
+    text-align: center;
+}
+#debugChart {
+    display: none !important;
+    height: 150px !important;
+    width: 300px !important;
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+}
+.videoelement {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: flex;
+    justify-content: center;
+}

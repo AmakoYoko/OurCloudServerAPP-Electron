@@ -1,0 +1,146 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);
+.notch{
+    position:absolute;
+    top:0;
+    left:0;
+    width:40px;
+    height:10vh;
+    background-color:#FFF;
+    z-index:1;
+    border-radius: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    top:2vh;
+    margin-top: auto;
+    position: relative;
+}
+.notch_container{
+    background-color: #fff;
+    top:-2vh;
+    margin-top: -5vh;
+    position: relative;
+    transform: translateY(-8vh);
+    transition: 0.5s ease-in-out;   
+
+}
+.notch_container:after{
+    content: "";
+    position: absolute;
+    background-color: #0f0131;
+    height: 2vh;
+    margin-top: -8px;
+    width:calc(50% - 20px);
+    border-radius: 0 80px 40px 0;
+}
+.notch_container:before{
+    content: "";
+    position: absolute;
+    background-color: #0f0131;
+    height: 2vh;
+    margin-top: 9vh;
+    width: calc(50% - 20px);
+    margin-left: calc(50% + 20px);
+    border-radius: 80px 0px 0px 40px;
+}
+.menu{
+font-size: 2em;
+position: absolute;
+margin-top:6vh;
+width:100%;
+text-align: center;
+cursor: pointer;
+}
+.notch_activator{
+    width: 100%;
+    height:8vh;
+}
+.notch_activator:hover .notch_container{
+    transform: translateY(0vh);
+    transition: 0.5s ease-in-out;   
+}
+
+.overlay{
+    background-color:#FFF;
+    width: 100%;
+    height: 80vh;
+
+    transform: translateY(-108vh);
+    transition: 0.7s ease-in-out;
+
+}
+.overlay_active{
+    background-color:#FFF;
+    height: 80vh;
+    width: 100%;
+    transform: translateY(-3vh);
+    z-index: 2;
+    border-radius:0 0 40px 40px;
+    transition: 0.7s ease-in-out;
+}
+.inverted_notch{
+    display: grid;
+    grid-template-columns: 100vw;
+    bottom: 0;
+    height:5vh;
+    position: absolute;
+
+}
+.inverted_notch_bulb{
+    background-color: #0f0131;
+    height: 5vh;
+    width: 40px;
+    border-radius: 40px 40px 0 0;
+    top: -4vh;
+    justify-self: center;
+    position: inherit;
+
+
+}
+.inverted_notch{
+ 
+    position: absolute;
+    height: 2vh;
+    bottom: 0;
+    display: grid;
+    
+}
+.bottom_inverted_notch{
+
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #0f0131;
+    height: 2vh;
+    width:50vh;
+
+}
+.bottom_inverted_notch::after{
+    content: "";
+    position: absolute;
+    background-color: #FFF;
+    height: 2vh;
+    width:25vh;
+    border-radius: 0 0 40px 0 ;
+    margin-left: -3.3vh;
+     bottom: 0;
+    z-index: 3;
+}
+.bottom_inverted_notch::before{
+    content: "";
+    position: absolute;
+    background-color: #FFF;
+    height: 2vh;
+    width:25vh;
+    border-radius: 0 0 0 40px ;
+    margin-left: 28.5vh;
+     bottom: 0;
+    z-index: 3;
+}
+.menu_inverted{
+    font-family: 'Roboto', sans-serif;
+    color:#FFF;
+    font-size: 2em;
+    text-align: center;
+}
+.overlay_content{
+    padding:2em;
+}

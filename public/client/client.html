@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="./overlay_notch.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+      <script lang="text/javascript" src="/socket.io/socket.io.js"></script>
+      <script src="/simple-peer/simplepeer.min.js"></script>
+    </head>
+    <body>
+    <div class="notch_activator">
+        <div class="notch_container">
+            <div class="notch"> <div class="menu" onclick="TriggerOverlay()" id="overlay_trigger">+</div> </div>
+        </div>
+    </div>
+    <div class="overlay" id="overlay">
+        <div class="overlay_content">
+            <div class="overlay_title">
+                <h1>Menu</h1>
+                <p>RayID : 3000 | STUN Server : | Peer info : | AutoNegociation : false </p>
+                <h2>Stream Options</h2>
+                <button class="btn primary" onclick="VideoPlay()">Refresh Stream</button>
+                <button class="btn primary">Toggle Stream</button>
+
+                <button class="btn danger">Disconnect Stream</button>
+                <button class="btn info" onclick="toggleFullScreen()">FullScreen Stream</button>
+
+                <button class="btn warning">AutoNegociation Mode</button>
+                <h2>Input Options</h2>
+                <button class="btn info" onclick="KeyBoardToggle()">Keyboard Input</button>
+                <button class="btn info" onclick="MouseToggle()">Mouse Input</button>
+                <button class="btn info" onclick="VideoPlay()">Synchronize Input</button>
+
+                <button class="btn warning">Toggle GamePad</button>
+                <button class="btn info">Input Binding</button>
+                <h2>Audio Options</h2>
+                <button class="btn success">Toggle Audio</button>
+                <button class="btn info" onclick='socket.emit("soundTest","tt")'>Stereo Send</button>
+
+                <h2>Debug Options</h2>
+                <button class="btn info" onclick="debugGraph()">Graphic Debug</button>
+
+
+
+
+            </div>
+        </div>
+        <div class="inverted_notch">
+            <div class="bottom_inverted_notch"></div>
+            <div class="inverted_notch_bulb"><div class="menu_inverted" onclick="TriggerOverlay()" id="overlay_trigger">X</div></div>
+        </div>
+    </div>
+
+    <div class="video_container">
+        <div id="videos" class="videoelement"></div>
+    </div>
+    <div class="waiting_for_stream" id="waiting_for_stream">
+        <div class="waiting_for_stream_content">
+            <h1>Pré-chauffage en cours</h1>
+            <p id="funny_message">Dépoussièrage des cartouches</p>
+        </div>
+    </div>
+    <canvas id="debugChart" ></canvas>
+
+
+    <div class="NetworkConnectivityIndicator">
+        <span class="material-icons">
+            rss_feed
+            </span>
+    </div>
+    </body>
+    <script src='js/main.js' lang="text/javascript"></script>
+    <script src='js/keyboard.js' lang="text/javascript"></script>
+
+    <script>
+
+        overlayDebug = false;
+
+        var overlay = document.getElementById("overlay");
+        if(overlayDebug){
+            console.log("Overlay Debug Mode");
+            overlay.className = "overlay_active";
+        }
+        function TriggerOverlay() {
+            if(overlay.className == "overlay"){
+                overlay.className = " overlay_active";
+            }else{
+                overlay.className = "overlay";
+            }
+        };
+
+        FunnyArray = ["Dépoussièrage des cartouches", "*Souffle dans la cartouche*", "Nettoyage des CD", "Piratage du jeu en cours", "Forcage de bouton en cours","Mise sous tension", "suki suki daisuki"] 
+        function changeFunnyMessage(){
+            
+            document.getElementById("funny_message").innerHTML = FunnyArray[Math.floor(Math.random() * FunnyArray.length)];
+        }
+        setInterval(changeFunnyMessage, 5000);
+
+        const ctx = document.getElementById('debugChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['time 0'],
+        datasets: [{
+            label: 'Perfomance Debug Graph',
+            data: [0],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+                
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        animation: false,
+        responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+        y: {
+            suggestedMin: 0,
+            suggestedMax: 100
+        }
+    }
+    }
+});
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+
+ var time = 0
+function updateChartFrame(){
+    calcPing();
+    addData(myChart, "time "+time++, ENV.ping);
+    if(myChart.data.datasets[0].data.length > 60){
+        myChart.data.datasets[0].data.shift();
+        myChart.data.labels.shift();
+    }
+
+}
+var updateDebugGraph
+var grahDebugTrigger = false;
+function debugGraphActive(){
+    updateDebugGraph = setInterval(updateChartFrame, 50);
+    document.getElementById('debugChart').style.cssText = 'display:block !important';
+
+
+    grahDebugTrigger = true;
+}   
+function debugGraphUnActive(){
+    clearInterval(updateDebugGraph);
+    document.getElementById('debugChart').style.cssText = 'display:none !important';
+    grahDebugTrigger = false;
+}   
+
+function debugGraph(){
+    if(grahDebugTrigger){
+        debugGraphUnActive();
+    }
+    else{
+        debugGraphActive();
+    }
+}
+    </script>
